@@ -2,7 +2,7 @@
 
 郭一隆 2013011189
 
-## 感受歌声
+## 单频模拟
 
 ### 小白鲸原声
 
@@ -15,10 +15,13 @@
   ```
 
 + 音频曲线:
-![小白鲸原声](pic/OriginalWave.png)
+  ![小白鲸原声](pic/OriginalWave.png)
+  
+  从图中可以直观地感受到频率很高, 这和我们听到的直观(音调高)是符合的.
+
 
 + 局部放大图:
-![原声局部放大](pic/OriginalWaveZoomIn.png)
+  ![原声局部放大](pic/OriginalWaveZoomIn.png)
   - 从图像估算频率
   
     ```
@@ -39,7 +42,7 @@
     title('频域分析');
     ```
 
-  ![频域分析原声](pic/FFTOriginal.png)
+    ![频域分析原声](pic/FFTOriginal.png)
   
     ```matlab
     [Y, I] = max(abs(y))
@@ -54,10 +57,10 @@
   wavwrite(single_f_wav, fs, 16, 'G:\projects\whale-song\wav\synfixed.wav')
   ```
   - 整体波形
-  ![单频整体](pic/SingleFrequency.png)
+    ![单频整体](pic/SingleFrequency.png)
 
   - 局部放大
-  ![单频局部](pic/SingleFrequencyZoomIn.png)
+    ![单频局部](pic/SingleFrequencyZoomIn.png)
 
   然而, 这并没有什么卵用, 因为这个单频信号听起来就像被*打码*的语音... 脑洞如此大的笔者也想象不出这是白鲸的叫声
 
