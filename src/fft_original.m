@@ -4,7 +4,7 @@ fs = 44.1e3;            % sampling rate: 44.1kHz
 N = length(original);   % sample size
 n = 0:N-1;
 t = n / fs;             % time sequence
-f = n / N * fs;         % frequence sequence
+f = n / N * fs;         % frequency sequence
 
 y = fft(original, N);
 plot(f, abs(y));
