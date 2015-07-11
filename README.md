@@ -54,5 +54,12 @@ plot([0:1/fs:(length(original)-1)/fs],original),title('小白鲸原声')
 single_f_wav = sin(2*pi*fe*t)
 wavwrite(single_f_wav, fs, 16, 'G:\projects\whale-song\wav\single_f.wav')
 ```
+
+  - 整体波形
+  ![单频整体](pic/SingleFrequency.png)
+
+  - 局部放大
+  ![单频局部](pic/SingleFrequencyZoomIn.png)
+  
 然而, 这并没有什么卵用, 因为这个单频信号听起来就像被*打码*的语音... 脑洞如此大的笔者也想象不出这是白鲸的叫声
 
