@@ -28,8 +28,6 @@ plot([0:1/fs:(length(original)-1)/fs],original),title('小白鲸原声')
   - 频域分析
 
   ```matlab
-  original = wavread('G:\Vone\Tsinghua\2015spring\信号与系统\893404634_1_Project2015\Project2015\whalesong.wav');
-
   fs = 44.1e3;            % sampling rate: 44.1kHz
   N = length(original);   % sample size
   n = 0:N-1;
@@ -43,14 +41,16 @@ plot([0:1/fs:(length(original)-1)/fs],original),title('小白鲸原声')
 
   ![频域分析原声](pic/FFTOriginal.png)
   
-  ```
-  f = 2.754 kHz
+  ```matlab
+  [Y, I] = max(abs(y))
+  fe = I / N * fs
   ```
 
-+ 显然利用`FFT`得到的结果更靠谱, 利用`f = 2.754 kHz`的单频信号模拟, 生成[single_f.wav](wav/single_f.wav)
+  得`fe = 2.757 kHz`
+
++ 显然利用`FFT`得到的结果更靠谱, 利用`fe = 2.757 kHz`的单频信号模拟, 生成[single_f.wav](wav/single_f.wav)
 
 ```matlab
-fe = 2754
 single_f_wav = sin(2*pi*fe*t)
 wavwrite(single_f_wav, fs, 16, 'G:\projects\whale-song\wav\single_f.wav')
 ```
