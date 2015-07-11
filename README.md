@@ -47,7 +47,7 @@ plot([0:1/fs:(length(original)-1)/fs],original),title('小白鲸原声')
   f = 2.754 kHz
   ```
 
-+ 显然利用`FFT`得到的结果更靠谱, 利用`f = 2.754 kHz`的单频信号模拟, 生成(single_f.wav)[wav/single_f.wav]
++ 显然利用`FFT`得到的结果更靠谱, 利用`f = 2.754 kHz`的单频信号模拟, 生成[single_f.wav](wav/single_f.wav)
 
 ```matlab
 fe = 2754
