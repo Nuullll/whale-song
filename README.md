@@ -22,7 +22,5 @@ plot([0:1/sample_rate:(length(original)-1)/sample_rate],original),title('小白�
 
 ![原声局部放大](pic/OriginalWaveZoomIn.png)
 - 从图像估算频率
-
     f = ((0.2006 - 0.1988) / 10) ^ -1 = 5.556 kHz
-
 - 
