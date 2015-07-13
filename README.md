@@ -134,9 +134,10 @@
     y = max(y);     % maximum of each column
     x = linspace(0, max(t), size/d);   % linear interpolation
 
-    subplot(2,1,1); plot(t, original);
+    subplot(1,1,1); plot(t, original);
     title('原声'); xlabel('t/s'); axis([0 0.37 0 1]);
-    subplot(2,1,2); plot(x,y);
+    hold on;
+    plot(x,y);
     title('原声包络'); xlabel('t/s'); axis([0 0.37 0 1]);
     ```
 
