@@ -36,6 +36,7 @@
   - 频域分析
 
     ```matlab
+    % src/fft_original.m
     fs = 44.1e3;            % sampling rate: 44.1kHz
     N = length(original);   % sample size
     n = 0:N-1;
@@ -97,4 +98,70 @@
     - `f(t=0.30) = 2756 Hz`
 
     - `f(t=0.37) = 2584 Hz`
-    
+
++ 产生模拟信号
+
+  - 频域: **分段折线逼近**
+
+    ```matlab
+    % src/single_f_estimate.m
+    y1 = chirp(0:1/fs:0.06, 2412, 0.03, 2584);
+    y2 = chirp(0.06:1/fs:0.30, 2756, 0.18, 2756);
+    y3 = chirp(0.30:1/fs:0.37, 2756, 0.335, 2670);
+
+    subplot(1,1,1);
+    [S,F,T,P] = spectrogram([y1,y2,y3], 256, 250, 256, fs);
+    surf(T,F,10*log10(P),'edgecolor','none');
+    view(0,90);
+    xlabel('t/s');
+    ylabel('f/Hz');
+    axis([0 0.37 0 1.5e4]);
+    title('变频模拟');
+    ```
+
+    ![变频模拟](pic/Single.png)
+
+    *注: 时频图上有少量其他频率分量, 可能是离散信号取点不精确造成的*
+
+  - 时域: **原声包络**
+
+    ```matlab
+    % src/find_envelope.m
+    size = 16500;
+    Y = original(1:size);
+    d = 165;    % length of each part
+    y = reshape(Y, d, size/d);  % y: d * size/d matrix
+    y = max(y);     % maximum of each column
+    x = linspace(0, max(t), size/d);   % linear interpolation
+
+    subplot(2,1,1); plot(t, original);
+    title('原声'); xlabel('t/s'); axis([0 0.37 0 1]);
+    subplot(2,1,2); plot(x,y);
+    title('原声包络'); xlabel('t/s'); axis([0 0.37 0 1]);
+    ```
+
+    ![原声包络](pic/Envelope.png)
+
+    **利用原声包络调制产生的变频信号**
+
+    ```matlab
+    % src/single_modulation.m
+    mag = interp1(x,y,0:1/fs:16319/fs);   % run find_envelope.m first
+
+    subplot(3,1,1); plot(t,original);
+    axis([0 0.37 -1 1]); title('原声'); xlabel('t/s');
+
+    subplot(3,1,2); plot(t(1:length(mag)),[y1,y2,y3]);   % run single_f_estimate.m first
+    axis([0 0.37 -1 1]); title('变频模拟'); xlabel('t/s');
+
+    subplot(3,1,3); plot(t(1:length(mag)),mag.*[y1,y2,y3]);    
+    axis([0 0.37 -1 1]); title('变频模拟调幅'); xlabel('t/s');
+    ```
+
+    ![变频信号调制](pic/SingleModulation.png)
+
+    ```matlab
+    wavwrite(mag.*[y1,y2,y3],fs,16,'G:\projects\whale-song\wav\synsingle.wav')
+    ```
+
+    生成[synsingle.wav](wav/synsingle.wav), 这次模拟的信号已经和原声有些相似, 听得出声音强度的变化, 但音调仍然很单一, 而且声音不够饱满.

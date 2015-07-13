@@ -1,0 +1,2 @@
+% src/single_modulation.m
+mag = interp1(x,y,[0:1/fs

@@ -1,0 +1,7 @@
+d = 1381;   % length of each part
+y = reshape(original, d, N/d);  % y: d * N/d matrix
+y = max(y);     % maximum of each column
+x = linspace(0, max(t), N/d);   % linear interpolation
+axis([0 0
+subplot(1,2,1); plot(t, original); title('Ô­Éù'); xlabel('t/s');
+subplot(1,2,2); plot(x,y); title('Ô­Éù°üÂç'); xlabel('t/s');
